@@ -1,0 +1,88 @@
+import java.util.Scanner;
+public class ConstructID {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your full name: ");
+        String fullName = scanner.nextLine();
+        System.out.print("Enter your street address: ");
+        String address = scanner.nextLine();
+        String[] names = fullName.split(" ");
+        StringBuilder initials = new StringBuilder();
+        for (String name : names) {
+            initials.append(name.charAt(0));
+        }
+        String numericPart = address.replaceAll("[^0-9]", "");
+        String id = initials.toString().toUpperCase() + numericPart;
+        System.out.println("Your ID is: " + id);
+        scanner.close();
+    }
+}
+Output:
+Enter your full name : Shree Varshini
+Enter your street address : 0506 Gandhinagar
+Your ID is: SV0506
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+public class TextEncryption {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a message to encrypt: ");
+        String message = scanner.nextLine();
+        String encryptedMessage = encryptMessage(message);
+        System.out.println("Encrypted message: " + encryptedMessage);
+        String decryptedMessage = decryptMessage(encryptedMessage);
+        System.out.println("Decrypted message: " + decryptedMessage);
+        scanner.close();
+    }
+    public static String encryptMessage(String message) {
+        StringBuilder encrypted = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            char currentChar = message.charAt(i);
+            if (Character.isLetter(currentChar)) {
+                char encryptedChar = (char) (currentChar + 3);
+                if (Character.isUpperCase(currentChar) && encryptedChar > 'Z') {
+                    encryptedChar = (char) (encryptedChar - 26);
+                } else if (Character.isLowerCase(currentChar) && encryptedChar > 'z') {
+                    encryptedChar = (char) (encryptedChar - 26);
+                }
+                encrypted.append(encryptedChar);
+            } else {
+                encrypted.append(currentChar);
+            }
+        }
+        return encrypted.toString();
+    }
+    public static String decryptMessage(String encryptedMessage) {
+        StringBuilder decrypted = new StringBuilder();
+        for (int i = 0; i < encryptedMessage.length(); i++) {
+            char currentChar = encryptedMessage.charAt(i);
+            if (Character.isLetter(currentChar)) {
+                char decryptedChar = (char) (currentChar - 3);
+                if (Character.isUpperCase(currentChar) && decryptedChar < 'A') {
+                    decryptedChar = (char) (decryptedChar + 26);
+                } else if (Character.isLowerCase(currentChar) && decryptedChar < 'a') {
+                    decryptedChar = (char) (decryptedChar + 26);
+                }
+                decrypted.append(decryptedChar);
+            } else {
+                decrypted.append(currentChar);
+            }
+        }
+        return decrypted.toString();
+    }
+}
+
+Output:
+Enter a message to encrypt: varshini
+Encrypted message: yduklql
+Decrypted message: varshini
+
+
+
